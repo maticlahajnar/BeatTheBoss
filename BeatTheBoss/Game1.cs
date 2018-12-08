@@ -11,10 +11,18 @@ namespace BeatTheBoss
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Rectangle mainFrame;
+        Renderer myRenderer;
+
+        Scenes.Level currLevel;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
         }
 
@@ -40,7 +48,12 @@ namespace BeatTheBoss
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            TextureManager.LoadTextures(Content);
+
+            mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            myRenderer = new Renderer(spriteBatch, mainFrame);
+
+            currLevel = new Scenes.Levels.BasicLevel();
         }
 
         /// <summary>
@@ -76,6 +89,8 @@ namespace BeatTheBoss
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            myRenderer.Draw(currLevel, gameTime);
+            
 
             base.Draw(gameTime);
         }
