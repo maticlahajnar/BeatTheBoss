@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace BeatTheBoss
 {
@@ -49,11 +50,12 @@ namespace BeatTheBoss
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             TextureManager.LoadTextures(Content);
+            SoundManager.LoadContent(Content);
 
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-            myRenderer = new Renderer(spriteBatch, mainFrame);
+            myRenderer = new Renderer(spriteBatch, mainFrame, TextureManager.font);
 
-            currLevel = new Scenes.Levels.BasicLevel();
+            currLevel = new Scenes.Levels.MainMenu();
         }
 
         /// <summary>
@@ -75,7 +77,18 @@ namespace BeatTheBoss
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                if (MediaPlayer.IsMuted)
+                    MediaPlayer.IsMuted = false;
+                else
+                    MediaPlayer.IsMuted = true;
+            }
+
             // TODO: Add your update logic here
+            if (currLevel != null)
+                currLevel.Update(gameTime);
+
 
             base.Update(gameTime);
         }

@@ -43,12 +43,18 @@
   <ItemGroup>
     <Compile Include="Game1.cs" />
     <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\Weapon.cs" />
+    <Compile Include="Models\Weapons\Sword.cs" />
+    <Compile Include="Physics\BoxCollider.cs" />
+    <Compile Include="Physics\PhysicsEngine.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="Scenes\Level.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Levels\BasicLevel.cs" />
+    <Compile Include="Scenes\Levels\MainMenu.cs" />
+    <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +65,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sounds\melee_sound.wav" />
+    <Content Include="Content\Sounds\stepstone_1.wav" />
+    <Content Include="Content\Sounds\stepstone_2.wav" />
+    <Content Include="Content\Sounds\stepstone_3.wav" />
+    <Content Include="Content\Sounds\stepstone_4.wav" />
+    <Content Include="Content\Sounds\stepstone_5.wav" />
+    <Content Include="Content\Sounds\stepstone_6.wav" />
+    <Content Include="Content\Sounds\stepstone_7.wav" />
+    <Content Include="Content\Sounds\stepstone_8.wav" />
     <Content Include="Content\Textures\dungeonroom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -68,6 +83,8 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Sounds\Dungeon.ogg" />
+    <None Include="Content\Sounds\Opening.ogg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace BeatTheBoss.Scenes.Levels
 {
-    class BasicLevel : Level
+    class MainMenu : Level
     {
-
-        public BasicLevel()
+        public MainMenu()
         {
-            items = new Object[2];
+            items = new Object[1];
             items[0] = new Models.Room(TextureManager.background);
-            items[1] = new Models.Player(TextureManager.KnightTexture);
 
-            MediaPlayer.Play(SoundManager.basicLevelSong);
+
+
+            MediaPlayer.Play(SoundManager.mainMenuSong);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.5f;
         }
 
         public override void Update(GameTime gameTime)
         {
-            ((Models.Player)items[1]).Update(gameTime);
+
         }
 
         public override void Unload()

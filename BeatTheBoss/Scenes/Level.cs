@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace BeatTheBoss.Scenes
 {
-    class Level
+    abstract class Level
     {
         public Object[] items;
 
-        public Level()
-        {
-        }
+        public abstract void Update(GameTime gameTime);
+        public abstract void Unload();
 
     }
 }

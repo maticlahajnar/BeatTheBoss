@@ -13,6 +13,79 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Sounds/Dungeon.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Dungeon.ogg
+
+#begin Sounds/melee_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/melee_sound.wav
+
+#begin Sounds/Opening.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/Opening.ogg
+
+#begin Sounds/stepstone_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_1.wav
+
+#begin Sounds/stepstone_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_2.wav
+
+#begin Sounds/stepstone_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_3.wav
+
+#begin Sounds/stepstone_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_4.wav
+
+#begin Sounds/stepstone_5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_5.wav
+
+#begin Sounds/stepstone_6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_6.wav
+
+#begin Sounds/stepstone_7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_7.wav
+
+#begin Sounds/stepstone_8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/stepstone_8.wav
+
+#begin Textures/Coordinates.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Textures/Coordinates.spritefont
+
 #begin Textures/dungeonroom.png
 /importer:TextureImporter
 /processor:TextureProcessor
