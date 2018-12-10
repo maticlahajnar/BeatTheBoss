@@ -10,7 +10,6 @@ namespace BeatTheBoss.Models
 
         public Vector2 position;
         public Vector2 direction;
-        public Physics.BoxCollider collider;
 
         public float speed;
         public int dir; //For sprite direction
@@ -29,13 +28,13 @@ namespace BeatTheBoss.Models
             this.direction = new Vector2(0, 0);
             this.speed = 0.2f;
             this.dir = 1;
-            this.collider = new Physics.BoxCollider(spriteSource.Height, spriteSource.Width, false);
         }
 
         public void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
 
+            #region YMovement
             if(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
             {
                 direction.Y = -1;
@@ -48,9 +47,10 @@ namespace BeatTheBoss.Models
             {
                 direction.Y = 0;
             }
+            #endregion
 
-            
 
+            #region YMovement
             if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 direction.X = 1;
@@ -64,7 +64,8 @@ namespace BeatTheBoss.Models
             else
             {
                 direction.X = 0;
-            }            
+            }
+            #endregion
 
             Vector2 temp_pos = Vector2.Add(Vector2.Multiply(Vector2.Multiply(direction, speed), gameTime.ElapsedGameTime.Milliseconds), position);
             position.X = Math.Max(20, temp_pos.X);
