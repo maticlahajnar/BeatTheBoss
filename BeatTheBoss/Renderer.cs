@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace BeatTheBoss
 {
@@ -8,17 +10,26 @@ namespace BeatTheBoss
         private SpriteBatch spriteBatch;
         private Rectangle mainFrame;
         private SpriteFont font;
+        private GraphicsDevice graphicsDevice;
 
-        public Renderer(SpriteBatch spriteBatch, Rectangle mainFrame, SpriteFont font)
+        private bool DRAW_COLLIDER = true;
+
+        Texture2D t;
+
+        public Renderer(SpriteBatch spriteBatch, Rectangle mainFrame, SpriteFont font, GraphicsDevice graphicsDevice)
         {
             this.spriteBatch = spriteBatch;
             this.mainFrame = mainFrame;
             this.font = font;
+            this.graphicsDevice = graphicsDevice;
+
+            t = new Texture2D(graphicsDevice,1, 1);
+            t.SetData(new[] { Color.White });
         }
 
         public void Draw(Scenes.Level currLevel, GameTime gameTime)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin( SpriteSortMode.Deferred, BlendState.AlphaBlend);
             spriteBatch.Draw(TextureManager.background, mainFrame, Color.White);
             spriteBatch.Draw(TextureManager.spriteSheet, Vector2.Zero, TextureManager.KnightTexture, Color.White);
             
@@ -27,7 +38,8 @@ namespace BeatTheBoss
                 if (item is Models.Room)
                 {
                     spriteBatch.Draw(((Models.Room)item).texture, mainFrame, Color.White);
-                } else if (item is Models.Player)
+                }
+                else if (item is Models.Player)
                 {
                     spriteBatch.Draw(TextureManager.spriteSheet, ((Models.Player)item).position, ((Models.Player)item).spriteSource, Color.White, 0f, new Vector2(0, 0), 1f, (((Models.Player)item).dir== -1) ? SpriteEffects.FlipHorizontally: SpriteEffects.None, 0.6f);
                     spriteBatch.DrawString(font, "Coordinates X:" + ((Models.Player)item).position.X + " Y:" + ((Models.Player)item).position.Y, new Vector2(20, 3), Color.Red);
@@ -44,9 +56,44 @@ namespace BeatTheBoss
                             0.5f);
                     }
                 }
+                else if(item is Models.Enemy)
+                {
+                    spriteBatch.Draw(TextureManager.spriteSheet, ((Models.Enemy)item).position, ((Models.Enemy)item).spriteSource, ((Models.Enemy)item).color, 0f, new Vector2(0, 0), 1f, (((Models.Enemy)item).dir == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.6f);
+                }
+
+                if(DRAW_COLLIDER &&  item is Physics.BoxCollider)
+                {
+                    Rectangle box = ((Physics.BoxCollider)item).area;
+                    int bw = 2;
+                    spriteBatch.Draw(t, new Rectangle(box.Left, box.Top, bw, box.Height), Color.LightGreen); // Left
+                    spriteBatch.Draw(t, new Rectangle(box.Right, box.Top, bw, box.Height), Color.LightGreen); // Right
+                    spriteBatch.Draw(t, new Rectangle(box.Left, box.Top, box.Width, bw), Color.LightGreen); // Top
+                    spriteBatch.Draw(t, new Rectangle(box.Left, box.Bottom, box.Width, bw), Color.LightGreen); // Bottom
+                }
+                else if (DRAW_COLLIDER && item is Physics.PollygonCollider)
+                {
+                    Physics.PollygonCollider collider = (Physics.PollygonCollider)item;
+                    for(int i = 1; i < collider.Points.Length; i++)
+                    {
+                        DrawLine(Vector2.Add(collider.position, collider.Points[i - 1]), Vector2.Add(collider.position, collider.Points[i]));
+
+                        if(i == collider.Points.Length - 1)
+                            DrawLine(Vector2.Add(collider.position, collider.Points[i]), Vector2.Add(collider.position, collider.Points[0]));
+                    }
+                }
             }
 
+            spriteBatch.Draw(TextureManager.cursorTexture, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
             spriteBatch.End();
+        }
+
+        public void DrawLine(Vector2 start, Vector2 end)
+        {
+            spriteBatch.Draw(t, start, null, Color.LightGreen,
+                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
+                             new Vector2(0f, 0f),
+                             new Vector2(Vector2.Distance(start, end), 1f),
+                             SpriteEffects.None, 0f);
         }
     }
 }
