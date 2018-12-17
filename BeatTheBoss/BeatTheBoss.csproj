@@ -42,10 +42,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="Models\ColliderOnlyObject.cs" />
+    <Compile Include="Models\Enemies\SmallOgre.cs" />
+    <Compile Include="Models\Enemies\SmallTroll.cs" />
+    <Compile Include="Models\Enemies\Wizard.cs" />
+    <Compile Include="Models\Enemy.cs" />
+    <Compile Include="Models\PollyColliderObject.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Weapons\Sword.cs" />
+    <Compile Include="Physics\Collider.cs" />
+    <Compile Include="Physics\PhysicsEngine.cs" />
+    <Compile Include="Physics\PollygonCollider.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="Physics\BoxCollider.cs" />
     <Compile Include="Scenes\Level.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Program.cs" />
@@ -72,6 +82,7 @@
     <Content Include="Content\Sounds\stepstone_6.wav" />
     <Content Include="Content\Sounds\stepstone_7.wav" />
     <Content Include="Content\Sounds\stepstone_8.wav" />
+    <Content Include="Content\Textures\CursorTexture.png" />
     <Content Include="Content\Textures\dungeonroom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
