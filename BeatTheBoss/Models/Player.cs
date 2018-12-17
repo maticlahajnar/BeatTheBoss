@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BeatTheBoss.Physics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace BeatTheBoss.Models
 {
-    class Player
+    class Player : Physics.BoxCollider
     {
         public Rectangle spriteSource;
 
@@ -22,19 +23,51 @@ namespace BeatTheBoss.Models
 
         public Player(Rectangle spriteRect)
         {
+
             this.spriteSource = spriteRect;
-            this.position = new Vector2(100, 200);
+            this.position = new Vector2(640, 360);
             this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
             this.direction = new Vector2(0, 0);
             this.speed = 0.2f;
             this.dir = 1;
+            this.area = new Rectangle(0, 0, 59, 79);
+        }
+
+        public override void ApplyCollision(BoxCollider other)
+        {
+            if (other is Enemy)
+                return;
+
+            if (area.Left < other.area.Left && direction.X > 0)
+                direction.X = 0;
+
+            if (area.Right > other.area.Right && direction.X < 0)
+                direction.X = 0;
+
+            if (area.Top < other.area.Top && direction.Y > 0)
+                direction.Y = 0;
+
+            if (area.Bottom > other.area.Bottom && direction.Y < 0)
+                direction.Y = 0;
+        }
+
+        public override void ApplyCollision(PollygonCollider other)
+        {
+            
         }
 
         public void Update(GameTime gameTime)
         {
+            position = Vector2.Add(Vector2.Multiply(Vector2.Multiply(direction, speed), gameTime.ElapsedGameTime.Milliseconds), position);
+
+            area.X = (int)position.X;
+            area.Y = (int)position.Y;
+
+            
+
             KeyboardState state = Keyboard.GetState();
 
-            #region YMovement
+            #region YMovementDetection
             if(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.Up))
             {
                 direction.Y = -1;
@@ -49,8 +82,7 @@ namespace BeatTheBoss.Models
             }
             #endregion
 
-
-            #region YMovement
+            #region XMovementDetection
             if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 direction.X = 1;
@@ -67,13 +99,6 @@ namespace BeatTheBoss.Models
             }
             #endregion
 
-            Vector2 temp_pos = Vector2.Add(Vector2.Multiply(Vector2.Multiply(direction, speed), gameTime.ElapsedGameTime.Milliseconds), position);
-            position.X = Math.Max(20, temp_pos.X);
-            position.X = Math.Min(1204, position.X);
-
-            position.Y = Math.Max(20, temp_pos.Y);
-            position.Y = Math.Min(566, position.Y);
-
 
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -81,11 +106,13 @@ namespace BeatTheBoss.Models
             {
                 frame++;
                 if (frame >= spritePositions.Length)
+                {
                     frame = 0;
+                }
                 timer = 0f;
                 spriteSource = spritePositions[frame];
 
-                if(direction.X != 0 || direction.Y != 0)
+                if (frame % 2 == 0 && (direction.X != 0 || direction.Y != 0))
                     SoundManager.PlayWalkingSound();
             }
 

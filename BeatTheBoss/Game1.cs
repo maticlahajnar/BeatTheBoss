@@ -14,6 +14,7 @@ namespace BeatTheBoss
         SpriteBatch spriteBatch;
         Rectangle mainFrame;
         Renderer myRenderer;
+        Physics.PhysicsEngine physicsEngine;
 
         Scenes.Level currLevel;
 
@@ -53,9 +54,11 @@ namespace BeatTheBoss
             SoundManager.LoadContent(Content);
 
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-            myRenderer = new Renderer(spriteBatch, mainFrame, TextureManager.font);
+            myRenderer = new Renderer(spriteBatch, mainFrame, TextureManager.font, GraphicsDevice);
+            physicsEngine = new Physics.PhysicsEngine();
 
-            currLevel = new Scenes.Levels.MainMenu();
+            currLevel = new Scenes.Levels.BasicLevel();
+            
         }
 
         /// <summary>
@@ -89,6 +92,7 @@ namespace BeatTheBoss
             if (currLevel != null)
                 currLevel.Update(gameTime);
 
+            physicsEngine.CheckForCollision(currLevel);
 
             base.Update(gameTime);
         }
@@ -104,7 +108,6 @@ namespace BeatTheBoss
             // TODO: Add your drawing code here
             myRenderer.Draw(currLevel, gameTime);
             
-
             base.Draw(gameTime);
         }
     }
