@@ -23,6 +23,7 @@ namespace BeatTheBoss.Scenes.Levels
             items[6] = new Models.ColliderOnlyObject(1260, 0, 20, 720, false);
             items[7] = new Models.PollyColliderObject(new Vector2[] { new Vector2(0, 0), new Vector2(30, 0), new Vector2(45, 30), new Vector2(30, 60), new Vector2(0, 60), new Vector2(-15, 30) }, new Vector2(200, 200), (Models.Player)items[1], new Vector2(15, 30));
 
+            UIContainers = new Stack<UI.Container>();
 
             MediaPlayer.Play(SoundManager.basicLevelSong);
             MediaPlayer.IsRepeating = true;

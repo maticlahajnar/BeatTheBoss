@@ -15,7 +15,8 @@ namespace BeatTheBoss.Scenes.Levels
             items = new Object[1];
             items[0] = new Models.Room(TextureManager.background);
 
-
+            UIContainers = new Stack<UI.Container>();
+            UIContainers.Push(new UI.Containers.MainMenuContainer());
 
             MediaPlayer.Play(SoundManager.mainMenuSong);
             MediaPlayer.IsRepeating = true;
@@ -24,7 +25,10 @@ namespace BeatTheBoss.Scenes.Levels
 
         public override void Update(GameTime gameTime)
         {
-
+            if(UIContainers.Count > 0)
+            {
+                UIContainers.Peek().Update(gameTime);
+            }
         }
 
         public override void Unload()

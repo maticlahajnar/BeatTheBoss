@@ -151,7 +151,13 @@ namespace BeatTheBoss.Models.Enemies
 
         public override void ApplyCollision(PollygonCollider other)
         {
-            throw new NotImplementedException();
+            Vector2 directionToOther = Vector2.Normalize(Vector2.Subtract(other.center, this.area.Center.ToVector2()));
+
+            if ((directionToOther.X < 0 && direction.X < 0) || (directionToOther.X > 0 && direction.X > 0))
+                direction.X = 0;
+
+            if ((directionToOther.Y < 0 && direction.Y < 0) || (directionToOther.Y > 0 && direction.Y > 0))
+                direction.Y = 0;
         }
     }
 }

@@ -64,6 +64,14 @@
     <Compile Include="Scenes\Levels\MainMenu.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />
+    <Compile Include="UI\Component.cs" />
+    <Compile Include="UI\Components\Button.cs" />
+    <Compile Include="UI\Components\Image.cs" />
+    <Compile Include="UI\Components\Label.cs" />
+    <Compile Include="UI\Container.cs" />
+    <Compile Include="UI\Containers\MainMenuContainer.cs" />
+    <Compile Include="UI\Models\QuitButton.cs" />
+    <Compile Include="UI\Models\StartGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -87,11 +95,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\tiles.png" />
+    <Content Include="Content\Textures\UI.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Fonts\Pixel12.spritefont" />
+    <None Include="Content\Fonts\Pixel30.spritefont" />
+    <None Include="Content\Fonts\Pixel30b.spritefont" />
+    <None Include="Content\Fonts\slkscr.ttf" />
+    <None Include="Content\Fonts\slkscrb.ttf" />
     <None Include="Content\Sounds\Dungeon.ogg" />
     <None Include="Content\Sounds\Opening.ogg" />
   </ItemGroup>

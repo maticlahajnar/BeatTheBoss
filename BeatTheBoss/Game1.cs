@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BeatTheBoss.Scenes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -15,8 +16,11 @@ namespace BeatTheBoss
         Rectangle mainFrame;
         Renderer myRenderer;
         Physics.PhysicsEngine physicsEngine;
+        public static Game1 self;
 
-        Scenes.Level currLevel;
+        private Scenes.Level currLevel;
+
+        internal Level CurrLevel { get => currLevel; set => currLevel = value; }
 
         public Game1()
         {
@@ -24,6 +28,7 @@ namespace BeatTheBoss
             graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
             graphics.ApplyChanges();
+            self = this;
 
             Content.RootDirectory = "Content";
         }
@@ -50,14 +55,14 @@ namespace BeatTheBoss
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            myRenderer = new Renderer(spriteBatch, mainFrame, GraphicsDevice);
+            physicsEngine = new Physics.PhysicsEngine();
+
             TextureManager.LoadTextures(Content);
             SoundManager.LoadContent(Content);
 
-            mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-            myRenderer = new Renderer(spriteBatch, mainFrame, TextureManager.font, GraphicsDevice);
-            physicsEngine = new Physics.PhysicsEngine();
-
-            currLevel = new Scenes.Levels.BasicLevel();
+            currLevel = new Scenes.Levels.MainMenu();
             
         }
 
@@ -77,9 +82,6 @@ namespace BeatTheBoss
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
                 if (MediaPlayer.IsMuted)

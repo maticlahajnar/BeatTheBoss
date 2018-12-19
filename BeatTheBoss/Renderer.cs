@@ -9,19 +9,17 @@ namespace BeatTheBoss
     {
         private SpriteBatch spriteBatch;
         private Rectangle mainFrame;
-        private SpriteFont font;
-        private GraphicsDevice graphicsDevice;
+        public static GraphicsDevice graphicsDevice;
 
         private bool DRAW_COLLIDER = true;
 
         Texture2D t;
 
-        public Renderer(SpriteBatch spriteBatch, Rectangle mainFrame, SpriteFont font, GraphicsDevice graphicsDevice)
+        public Renderer(SpriteBatch spriteBatch, Rectangle mainFrame, GraphicsDevice graphicsDeviceIn)
         {
             this.spriteBatch = spriteBatch;
             this.mainFrame = mainFrame;
-            this.font = font;
-            this.graphicsDevice = graphicsDevice;
+            graphicsDevice = graphicsDeviceIn;
 
             t = new Texture2D(graphicsDevice,1, 1);
             t.SetData(new[] { Color.White });
@@ -42,7 +40,6 @@ namespace BeatTheBoss
                 else if (item is Models.Player)
                 {
                     spriteBatch.Draw(TextureManager.spriteSheet, ((Models.Player)item).position, ((Models.Player)item).spriteSource, Color.White, 0f, new Vector2(0, 0), 1f, (((Models.Player)item).dir== -1) ? SpriteEffects.FlipHorizontally: SpriteEffects.None, 0.6f);
-                    spriteBatch.DrawString(font, "Coordinates X:" + ((Models.Player)item).position.X + " Y:" + ((Models.Player)item).position.Y, new Vector2(20, 3), Color.Red);
 
                     if(((Models.Player)item).weapon != null)
                     {
@@ -81,6 +78,14 @@ namespace BeatTheBoss
                             DrawLine(Vector2.Add(collider.position, collider.Points[i]), Vector2.Add(collider.position, collider.Points[0]));
                     }
                 }
+            }
+
+            if(currLevel.UIContainers.Count > 0)
+            {
+
+                currLevel.UIContainers.Peek().Draw(spriteBatch);
+
+
             }
 
             spriteBatch.Draw(TextureManager.cursorTexture, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);

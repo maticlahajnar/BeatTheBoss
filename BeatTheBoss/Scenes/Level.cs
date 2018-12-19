@@ -10,6 +10,7 @@ namespace BeatTheBoss.Scenes
     abstract class Level
     {
         public Object[] items;
+        public Stack<UI.Container> UIContainers;
 
         public abstract void Update(GameTime gameTime);
         public abstract void Unload();

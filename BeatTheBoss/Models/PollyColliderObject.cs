@@ -50,8 +50,6 @@ namespace BeatTheBoss.Models
 
             if ((directionToOther.Y < 0 && direction.Y < 0) || (directionToOther.Y > 0 && direction.Y > 0))
                 direction.Y = 0;
-
-            System.Diagnostics.Debug.WriteLine("Colliding with polly");
         }
 
         public override void ApplyCollision(BoxCollider other)
@@ -63,8 +61,6 @@ namespace BeatTheBoss.Models
 
             if ((directionToOther.Y < 0 && direction.Y < 0) || (directionToOther.Y > 0 && direction.Y > 0))
                 direction.Y = 0;
-
-            System.Diagnostics.Debug.WriteLine("Colliding with box");
         }
 
         public override Vector2 GetActualPointPosition(int index)

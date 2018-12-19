@@ -1,0 +1,20 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BeatTheBoss.UI
+{
+    abstract class Container
+    {
+        public Rectangle boundingBox;
+        public List<Component> components;
+        public Color color;
+
+        public abstract void Update(GameTime gameTime);
+        public abstract void Draw(SpriteBatch spriteBatch);
+    }
+}
