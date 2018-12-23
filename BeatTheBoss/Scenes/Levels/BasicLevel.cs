@@ -25,9 +25,7 @@ namespace BeatTheBoss.Scenes.Levels
 
             UIContainers = new Stack<UI.Container>();
 
-            MediaPlayer.Play(SoundManager.basicLevelSong);
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.5f;
+            SoundManager.PlaySong(SoundManager.basicLevelSong);
         }
 
         public override void Update(GameTime gameTime)

@@ -16,6 +16,9 @@ namespace BeatTheBoss
         public static Song basicLevelSong;
         public static Song mainMenuSong;
 
+        public static float volume;
+        public static bool isMuted;
+
         public static Random rnd;
 
         private static List<SoundEffect> walking;
@@ -39,6 +42,8 @@ namespace BeatTheBoss
             walking.Add(manager.Load<SoundEffect>("Sounds\\stepstone_8"));
 
             rnd = new Random();
+            volume = 0.5f;
+            isMuted = false;
         }
 
         public static void PlayWalkingSound()
@@ -46,6 +51,26 @@ namespace BeatTheBoss
             walking[stepIndex++].Play();
             if (stepIndex >= walking.Count)
                 stepIndex = 0;
+        }
+
+        public static void PlaySong(Song song)
+        {
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = volume;
+            MediaPlayer.IsMuted = isMuted;
+        }
+
+        public static void ToggleMuteSongs()
+        {
+            isMuted = !isMuted;
+            MediaPlayer.IsMuted = isMuted;
+        }
+
+        public static void ChangeVolume(float newVolume)
+        {
+            volume = newVolume;
+            MediaPlayer.Volume = volume;
         }
     }
 }

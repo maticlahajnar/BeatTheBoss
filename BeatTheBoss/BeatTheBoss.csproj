@@ -67,9 +67,16 @@
     <Compile Include="UI\Component.cs" />
     <Compile Include="UI\Components\Button.cs" />
     <Compile Include="UI\Components\Image.cs" />
+    <Compile Include="UI\Components\InputField.cs" />
     <Compile Include="UI\Components\Label.cs" />
+    <Compile Include="UI\Components\Slider.cs" />
     <Compile Include="UI\Container.cs" />
     <Compile Include="UI\Containers\MainMenuContainer.cs" />
+    <Compile Include="UI\Containers\OptionsContainer.cs" />
+    <Compile Include="UI\Models\BackButton.cs" />
+    <Compile Include="UI\Models\MusicVolumeSlider.cs" />
+    <Compile Include="UI\Models\MuteMusicButton.cs" />
+    <Compile Include="UI\Models\OptionsButton.cs" />
     <Compile Include="UI\Models\QuitButton.cs" />
     <Compile Include="UI\Models\StartGame.cs" />
   </ItemGroup>

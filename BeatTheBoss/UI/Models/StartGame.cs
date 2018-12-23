@@ -17,7 +17,6 @@ namespace BeatTheBoss.UI.Models
 
         public override void OnClick()
         {
-            System.Diagnostics.Debug.WriteLine("Overriden method on click");
             Game1.self.CurrLevel = new Scenes.Levels.BasicLevel();
         }
     }

@@ -13,6 +13,7 @@ namespace BeatTheBoss.UI.Components
         public string text;
         public Color color;
         public SpriteFont font;
+        public Rectangle location;
 
         public Label(string text, Rectangle boundingBox, Container parentContainer, Color color, SpriteFont font)
         {
@@ -21,13 +22,9 @@ namespace BeatTheBoss.UI.Components
             this.parentContainer = parentContainer;
             this.color = color;
             this.font = font;
+            this.location = boundingBox;
 
-            Vector2 size = font.MeasureString(text);
-            Rectangle area = new Rectangle((int)boundingBox.X, (int)boundingBox.Y, (int)size.X, (int)size.Y);
-            Vector2 move = Vector2.Subtract(boundingBox.Center.ToVector2(), area.Center.ToVector2());
-
-            this.boundingBox.X += (int)move.X;
-            this.boundingBox.Y += (int)move.Y;
+            Realign();
         }
 
         public override void Update(GameTime gameTime)
@@ -38,6 +35,16 @@ namespace BeatTheBoss.UI.Components
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, this.text, Vector2.Add(boundingBox.Location.ToVector2(), parentContainer.boundingBox.Location.ToVector2()), this.color);
+        }
+
+        public void Realign()
+        {
+            Vector2 size = font.MeasureString(text);
+            Rectangle area = new Rectangle((int)boundingBox.X, (int)boundingBox.Y, (int)size.X, (int)size.Y);
+            Vector2 move = Vector2.Subtract(location.Center.ToVector2(), area.Center.ToVector2());
+
+            this.boundingBox.X += (int)move.X;
+            this.boundingBox.Y += (int)move.Y;
         }
     }
 }

@@ -18,10 +18,10 @@ namespace BeatTheBoss.UI.Components
         private string text;
         private SpriteFont font;
 
-        private Image image;
-        private Label label;
+        public Image image;
+        public Label label;
 
-        bool isClicked;
+        public bool isClicked;
 
         public Button(Rectangle boundingBox, Texture2D texture, Rectangle spriteLocationNormal, Rectangle spriteLocationHover, Color color, Container parentContainer, string text, SpriteFont font, Color fontColor)
         {
@@ -65,14 +65,19 @@ namespace BeatTheBoss.UI.Components
 
                 if(Mouse.GetState().LeftButton == ButtonState.Pressed && isClicked == false)
                 {
-                    OnClick();
                     isClicked = true;
                 }
 
                 if (Mouse.GetState().LeftButton == ButtonState.Released && isClicked == true)
                 {
+                    OnClick();
                     isClicked = false;
                 }
+            }
+
+            if (Mouse.GetState().LeftButton == ButtonState.Released && isClicked == true)
+            {
+                isClicked = false;
             }
         }
 
