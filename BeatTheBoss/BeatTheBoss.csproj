@@ -73,12 +73,15 @@
     <Compile Include="UI\Container.cs" />
     <Compile Include="UI\Containers\MainMenuContainer.cs" />
     <Compile Include="UI\Containers\OptionsContainer.cs" />
+    <Compile Include="UI\Containers\PauseContainer.cs" />
     <Compile Include="UI\Models\BackButton.cs" />
+    <Compile Include="UI\Models\ContinueButton.cs" />
     <Compile Include="UI\Models\MusicVolumeSlider.cs" />
     <Compile Include="UI\Models\MuteMusicButton.cs" />
     <Compile Include="UI\Models\OptionsButton.cs" />
     <Compile Include="UI\Models\QuitButton.cs" />
     <Compile Include="UI\Models\StartGame.cs" />
+    <Compile Include="UI\Models\ToMainMenuButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace BeatTheBoss.Scenes.Levels
 {
     class BasicLevel : Level
     {
+        bool isEscPressed;
 
         public BasicLevel()
         {
@@ -26,13 +28,32 @@ namespace BeatTheBoss.Scenes.Levels
             UIContainers = new Stack<UI.Container>();
 
             SoundManager.PlaySong(SoundManager.basicLevelSong);
+
+            isEscPressed = false;
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (UIContainers.Count > 0)
+            {
+                UIContainers.Peek().Update(gameTime);
+                return;
+            }
+
             ((Models.Player)items[1]).Update(gameTime);
             ((Models.PollyColliderObject)items[2]).Update(gameTime);
             ((Models.PollyColliderObject)items[7]).Update(gameTime);
+
+            if (!isEscPressed && Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                isEscPressed = true;
+            }
+
+            if(isEscPressed && Keyboard.GetState().IsKeyUp(Keys.Escape))
+            {
+                isEscPressed = false;
+                UIContainers.Push(new UI.Containers.PauseContainer());
+            }
         }
 
         public override void Unload()
