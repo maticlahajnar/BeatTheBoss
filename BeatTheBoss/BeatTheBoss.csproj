@@ -52,6 +52,8 @@
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Weapons\Sword.cs" />
+    <Compile Include="Particles\Particle.cs" />
+    <Compile Include="Particles\BloodParticleEngine.cs" />
     <Compile Include="Physics\Collider.cs" />
     <Compile Include="Physics\PhysicsEngine.cs" />
     <Compile Include="Physics\PollygonCollider.cs" />
