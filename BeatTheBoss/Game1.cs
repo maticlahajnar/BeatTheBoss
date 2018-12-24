@@ -18,7 +18,7 @@ namespace BeatTheBoss
         Physics.PhysicsEngine physicsEngine;
         GameplayManager gameplay;
         public static Game1 self;
-
+        public Particles.BloodParticleEngine bloodParticleEngine;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -59,6 +59,8 @@ namespace BeatTheBoss
             TextureManager.LoadTextures(Content);
             SoundManager.LoadContent(Content);
 
+            bloodParticleEngine = new Particles.BloodParticleEngine();
+
             gameplay = new GameplayManager();
         }
 
@@ -82,6 +84,7 @@ namespace BeatTheBoss
             gameplay.Update(gameTime);
 
             physicsEngine.CheckForCollision();
+            bloodParticleEngine.Update();
 
             base.Update(gameTime);
         }

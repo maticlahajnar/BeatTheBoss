@@ -21,6 +21,8 @@ namespace BeatTheBoss
         public static Texture2D cursorTexture;
         public static Rectangle skull;
 
+        public static Rectangle[] bloodParticles;
+
         public static void LoadTextures(ContentManager manager)
         {
             spriteSheet = manager.Load<Texture2D>("Textures\\tiles");
@@ -40,6 +42,7 @@ namespace BeatTheBoss
             pixel = new Texture2D(Renderer.graphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.White });
 
+            bloodParticles = new Rectangle[] { new Rectangle(105,1078, 8, 5), new Rectangle(118, 1077, 6, 7), new Rectangle(129, 1078, 8, 5), new Rectangle(141, 1077, 8, 8), new Rectangle(151, 1077, 9, 6), new Rectangle(164, 1077, 6, 7) };
         }
 
 
