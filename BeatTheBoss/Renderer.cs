@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using BeatTheBoss.Models;
 
 namespace BeatTheBoss
 {
@@ -35,29 +36,28 @@ namespace BeatTheBoss
             
             foreach (object item in currLevel.items)
             {
-                if (item is Models.Room)
+                if (item is Room)
                 {
-                    spriteBatch.Draw(((Models.Room)item).texture, mainFrame, Color.White);
+                    spriteBatch.Draw(((Room)item).texture, mainFrame, Color.White);
                 }
-                else if (item is Models.Player)
+                else if (item is Player)
                 {
-                    spriteBatch.Draw(TextureManager.spriteSheet, ((Models.Player)item).position, ((Models.Player)item).spriteSource, Color.White, 0f, new Vector2(0, 0), 1f, (((Models.Player)item).dir== -1) ? SpriteEffects.FlipHorizontally: SpriteEffects.None, 0.6f);
-
-                    if(((Models.Player)item).weapon != null)
-                    {
-                        spriteBatch.Draw(TextureManager.spriteSheet,
-                            Vector2.Add((((Models.Player)item).dir == -1) ? ((Models.Player)item).weapon.locationL : ((Models.Player)item).weapon.locationR,
-                            ((Models.Player)item).position), ((Models.Player)item).weapon.spriteSource, Color.White,
-                            (((Models.Player)item).dir == -1) ? ((Models.Player)item).weapon.rotation : -((Models.Player)item).weapon.rotation,
-                            new Vector2(0, ((Models.Player)item).weapon.spriteSource.Height),
-                            1f,
-                            (((Models.Player)item).dir == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-                            0.5f);
-                    }
+                    spriteBatch.Draw(TextureManager.spriteSheet, ((Player)item).position, ((Player)item).spriteSource, Color.White, 0f, new Vector2(0, 0), 1f, (((Player)item).dir== -1) ? SpriteEffects.FlipHorizontally: SpriteEffects.None, 0.6f);
                 }
-                else if(item is Models.Enemy)
+                else if(item is Enemy)
                 {
-                    spriteBatch.Draw(TextureManager.spriteSheet, ((Models.Enemy)item).position, ((Models.Enemy)item).spriteSource, ((Models.Enemy)item).color, 0f, new Vector2(0, 0), 1f, (((Models.Enemy)item).dir == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.6f);
+                    spriteBatch.Draw(TextureManager.spriteSheet, ((Enemy)item).position, ((Enemy)item).spriteSource, ((Enemy)item).color, 0f, new Vector2(0, 0), 1f, (((Enemy)item).dir == -1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.6f);
+                } else if(item is Weapon)
+                {
+                    spriteBatch.Draw(TextureManager.spriteSheet,
+                        ((Weapon)item).getRenderPosition(),
+                        ((Weapon)item).spriteSource,
+                        Color.White,
+                        (((Weapon)item).playerInstance.dir == 1) ? -((Weapon)item).rotation : ((Weapon)item).rotation,
+                        new Vector2(0, ((Weapon)item).spriteSource.Height),
+                        1f,
+                        ((Weapon)item).playerInstance.dir == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
+                        0.6f);
                 }
 
                 if(DRAW_COLLIDER &&  item is Physics.BoxCollider)
@@ -74,21 +74,22 @@ namespace BeatTheBoss
                     Physics.PollygonCollider collider = (Physics.PollygonCollider)item;
                     for(int i = 1; i < collider.Points.Length; i++)
                     {
-                        DrawLine(Vector2.Add(collider.position, collider.Points[i - 1]), Vector2.Add(collider.position, collider.Points[i]));
+                        DrawLine(collider.GetActualPointPosition(i-1), collider.GetActualPointPosition(i));
 
                         if(i == collider.Points.Length - 1)
-                            DrawLine(Vector2.Add(collider.position, collider.Points[i]), Vector2.Add(collider.position, collider.Points[0]));
+                            DrawLine(collider.GetActualPointPosition(i), collider.GetActualPointPosition(0));
                     }
                 }
             }
 
+            // Draw blood particles
+            Game1.self.bloodParticleEngine.Draw(spriteBatch);
+
             if(currLevel.UIContainers.Count > 0)
             {
-
                 currLevel.UIContainers.Peek().Draw(spriteBatch);
-
-
             }
+
 
             spriteBatch.Draw(TextureManager.cursorTexture, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
             spriteBatch.End();

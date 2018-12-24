@@ -13,7 +13,6 @@ namespace BeatTheBoss.Scenes.Levels
     class BasicLevel : Level
     {
         bool isEscPressed;
-        public Models.Player player;
 
         public BasicLevel(int roomNumber)
         {
@@ -52,6 +51,7 @@ namespace BeatTheBoss.Scenes.Levels
                 }
             }
 
+            items.Add(new Models.Weapons.Sword(player));
 
             UIContainers = new Stack<UI.Container>();
 
@@ -72,7 +72,10 @@ namespace BeatTheBoss.Scenes.Levels
 
             for(int i = 6; i < items.Count; i++)
             {
-                ((Enemy)items[i]).Update(gameTime);
+                if(items[i] is Enemy)
+                    ((Enemy)items[i]).Update(gameTime);
+                else if(items[i] is Weapon)
+                    ((Weapon)items[i]).Update(gameTime);
             }
 
             if (!isEscPressed && Keyboard.GetState().IsKeyDown(Keys.Escape))

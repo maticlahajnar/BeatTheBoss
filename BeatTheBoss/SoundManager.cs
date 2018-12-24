@@ -48,7 +48,7 @@ namespace BeatTheBoss
 
         public static void PlayWalkingSound()
         {
-            walking[stepIndex++].Play();
+            walking[stepIndex++].Play(volume, 0, 0);
             if (stepIndex >= walking.Count)
                 stepIndex = 0;
         }
@@ -71,6 +71,11 @@ namespace BeatTheBoss
         {
             volume = newVolume;
             MediaPlayer.Volume = volume;
+        }
+
+        public static void PlaySound(SoundEffect sound)
+        {
+            sound.Play(volume, 0, 0);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BeatTheBoss
         public static GameplayManager self;
 
         public Level CurrLevel = null;
-        public int currLevel = 10;
+        public int currLevel = 0;
 
         public GameplayManager()
         {

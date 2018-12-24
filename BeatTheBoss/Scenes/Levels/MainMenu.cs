@@ -14,6 +14,7 @@ namespace BeatTheBoss.Scenes.Levels
         public MainMenu()
         {
             items = new List<object>();
+            player = null;
             items.Add(new Models.Room(TextureManager.background));
 
             UIContainers = new Stack<UI.Container>();

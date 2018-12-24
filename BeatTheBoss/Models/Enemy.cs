@@ -15,7 +15,9 @@ namespace BeatTheBoss.Models
         public float speed;
         public int dir;
         public Color color;
+        public float hp;
 
         public abstract void Update(GameTime gameTime);
+        public abstract void TakeDamage(float damage);
     }
 }

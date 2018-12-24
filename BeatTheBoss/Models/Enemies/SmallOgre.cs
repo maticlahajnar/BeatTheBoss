@@ -15,7 +15,6 @@ namespace BeatTheBoss.Models.Enemies
         public Rectangle[] spriteLocations;
         private Player playerInstance;
 
-        public float hp;
         public bool isAlive;
 
         public float frameTimer;
@@ -148,7 +147,7 @@ namespace BeatTheBoss.Models.Enemies
                 speed -= 0.10f * gameTime.ElapsedGameTime.Seconds;
             }
 
-            if(hp <= 0)
+            if(isAlive && hp <= 0)
             {
                 isAlive = false;
             }
@@ -163,6 +162,15 @@ namespace BeatTheBoss.Models.Enemies
 
             if ((directionToOther.Y < 0 && direction.Y < 0) || (directionToOther.Y > 0 && direction.Y > 0))
                 direction.Y = 0;
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            if (isAlive)
+            {
+                this.hp -= damage;
+                Game1.self.bloodParticleEngine.GenerateNewParticles(new Vector2(position.X + spriteSource.Width / 2, position.Y + spriteSource.Height / 2), SoundManager.rnd.Next(30, 50));
+            }
         }
     }
 }

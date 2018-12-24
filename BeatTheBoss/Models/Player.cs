@@ -15,7 +15,7 @@ namespace BeatTheBoss.Models
         public float speed;
         public int dir; //For sprite direction
 
-        public Models.Weapon weapon = null;
+        public float hp;
 
         private Rectangle[] spritePositions;
         private float timer = 0f;
@@ -31,6 +31,8 @@ namespace BeatTheBoss.Models
             this.speed = 0.2f;
             this.dir = 1;
             this.area = new Rectangle(0, 0, 59, 79);
+
+            hp = 200;
         }
 
         public override void ApplyCollision(BoxCollider other)
@@ -122,28 +124,11 @@ namespace BeatTheBoss.Models
                 if (frame % 2 == 0 && (direction.X != 0 || direction.Y != 0))
                     SoundManager.PlayWalkingSound();
             }
+        }
 
-
-            if (weapon != null && state.IsKeyDown(Keys.Space) && !weapon.inattack)
-            {
-                SoundManager.swordSound.Play();
-                weapon.attacking = true;
-                weapon.inattack = true;
-            }
-
-            if(weapon != null)
-            {
-                weapon.Update(gameTime);
-            }
-
-            // Temporary for display purpose
-            if(state.IsKeyDown(Keys.O))
-            {
-                if (this.weapon == null)
-                    this.weapon = new Models.Weapons.Sword();
-                else
-                    this.weapon = null;
-            }
+        public void TakeDamage(float damage)
+        {
+            this.hp -= damage;
         }
     }
 }
