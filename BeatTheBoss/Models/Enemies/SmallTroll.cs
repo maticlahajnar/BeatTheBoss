@@ -106,6 +106,11 @@ namespace BeatTheBoss.Models.Enemies
 
             if ((directionToOther.Y < 0 && direction.Y < 0) || (directionToOther.Y > 0 && direction.Y > 0))
                 direction.Y = 0;
+
+            if(hp <= 0)
+            {
+                isAlive = false;
+            }
         }
 
         public override void ApplyCollision(PollygonCollider other)

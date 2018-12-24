@@ -16,11 +16,8 @@ namespace BeatTheBoss
         Rectangle mainFrame;
         Renderer myRenderer;
         Physics.PhysicsEngine physicsEngine;
+        GameplayManager gameplay;
         public static Game1 self;
-
-        private Scenes.Level currLevel;
-
-        internal Level CurrLevel { get => currLevel; set => currLevel = value; }
 
         public Game1()
         {
@@ -58,12 +55,11 @@ namespace BeatTheBoss
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             myRenderer = new Renderer(spriteBatch, mainFrame, GraphicsDevice);
             physicsEngine = new Physics.PhysicsEngine();
-
+            
             TextureManager.LoadTextures(Content);
             SoundManager.LoadContent(Content);
 
-            currLevel = new Scenes.Levels.MainMenu();
-            
+            gameplay = new GameplayManager();
         }
 
         /// <summary>
@@ -82,19 +78,10 @@ namespace BeatTheBoss
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                if (MediaPlayer.IsMuted)
-                    MediaPlayer.IsMuted = false;
-                else
-                    MediaPlayer.IsMuted = true;
-            }
-
             // TODO: Add your update logic here
-            if (currLevel != null)
-                currLevel.Update(gameTime);
+            gameplay.Update(gameTime);
 
-            physicsEngine.CheckForCollision(currLevel);
+            physicsEngine.CheckForCollision();
 
             base.Update(gameTime);
         }
@@ -105,11 +92,11 @@ namespace BeatTheBoss
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            myRenderer.Draw(currLevel, gameTime);
-            
+            myRenderer.Draw(gameTime);
+
             base.Draw(gameTime);
         }
     }

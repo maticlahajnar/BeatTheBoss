@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BeatTheBoss.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
@@ -12,18 +13,45 @@ namespace BeatTheBoss.Scenes.Levels
     class BasicLevel : Level
     {
         bool isEscPressed;
+        public Models.Player player;
 
-        public BasicLevel()
+        public BasicLevel(int roomNumber)
         {
-            items = new Object[8];
-            items[0] = new Models.Room(TextureManager.background);
-            items[1] = new Models.Player(TextureManager.KnightTexture);
-            items[2] = new Models.PollyColliderObject(new Vector2[] { new Vector2(0, 0), new Vector2(30, 0), new Vector2(45, 30), new Vector2(30, 60), new Vector2(0, 60), new Vector2(-15, 30) }, new Vector2(500, 400), (Models.Player)items[1], new Vector2(15,30));
-            items[3] = new Models.ColliderOnlyObject(0, 0, 1280, 20, false);
-            items[4] = new Models.ColliderOnlyObject(0, 640, 1280, 80, false);
-            items[5] = new Models.ColliderOnlyObject(0, 0, 20, 720, false);
-            items[6] = new Models.ColliderOnlyObject(1260, 0, 20, 720, false);
-            items[7] = new Models.PollyColliderObject(new Vector2[] { new Vector2(0, 0), new Vector2(30, 0), new Vector2(45, 30), new Vector2(30, 60), new Vector2(0, 60), new Vector2(-15, 30) }, new Vector2(200, 200), (Models.Player)items[1], new Vector2(15, 30));
+            items = new List<object>();
+            player = new Models.Player(TextureManager.KnightTexture);
+
+            #region items.add static elements in this room, start updating at index 6
+            items.Add( new Models.Room(TextureManager.background));
+            items.Add( new Models.ColliderOnlyObject(0, 0, 1280, 20, false));
+            items.Add( new Models.ColliderOnlyObject(0, 640, 1280, 80, false));
+            items.Add( new Models.ColliderOnlyObject(0, 0, 20, 720, false));
+            items.Add( new Models.ColliderOnlyObject(1260, 0, 20, 720, false));
+            items.Add(player);
+            #endregion
+
+            int enemyCount = 2 + roomNumber / 4;
+
+            for(int i = 0; i < enemyCount; i++)
+            {
+                int enemyType = SoundManager.rnd.Next(0, 3);
+                int x = SoundManager.rnd.Next(120, 1160);
+                int y = SoundManager.rnd.Next(120, 540);
+                Vector2 enemyPosition = new Vector2(x,y);
+
+                switch(enemyType)
+                {
+                    case 0:
+                        items.Add(new Models.Enemies.SmallOgre(enemyPosition, player));
+                        break;
+                    case 1:
+                        items.Add(new Models.Enemies.SmallTroll(enemyPosition, player));
+                        break;
+                    case 2:
+                        items.Add(new Models.Enemies.Wizard(enemyPosition, player));
+                        break;
+                }
+            }
+
 
             UIContainers = new Stack<UI.Container>();
 
@@ -40,9 +68,12 @@ namespace BeatTheBoss.Scenes.Levels
                 return;
             }
 
-            ((Models.Player)items[1]).Update(gameTime);
-            ((Models.PollyColliderObject)items[2]).Update(gameTime);
-            ((Models.PollyColliderObject)items[7]).Update(gameTime);
+            player.Update(gameTime);
+
+            for(int i = 6; i < items.Count; i++)
+            {
+                ((Enemy)items[i]).Update(gameTime);
+            }
 
             if (!isEscPressed && Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

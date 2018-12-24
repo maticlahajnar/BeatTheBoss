@@ -147,6 +147,11 @@ namespace BeatTheBoss.Models.Enemies
             {
                 speed -= 0.10f * gameTime.ElapsedGameTime.Seconds;
             }
+
+            if(hp <= 0)
+            {
+                isAlive = false;
+            }
         }
 
         public override void ApplyCollision(PollygonCollider other)

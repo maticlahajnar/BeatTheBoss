@@ -8,14 +8,16 @@ namespace BeatTheBoss.Physics
 {
     class PhysicsEngine
     {
-        public void CheckForCollision(Scenes.Level currLevel)
+        public void CheckForCollision()
         {
-            for(int i = 0; i < currLevel.items.Length; i++)
+            Scenes.Level currLevel = GameplayManager.self.CurrLevel;
+
+            for (int i = 0; i < currLevel.items.Count; i++)
             {
                 if (!(currLevel.items[i] is Collider))
                     continue;
 
-                for(int j = 0; j < currLevel.items.Length; j++)
+                for(int j = 0; j < currLevel.items.Count; j++)
                 {
                     if (i == j || !(currLevel.items[j] is Collider))
                         continue;

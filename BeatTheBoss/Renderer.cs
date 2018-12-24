@@ -11,7 +11,7 @@ namespace BeatTheBoss
         private Rectangle mainFrame;
         public static GraphicsDevice graphicsDevice;
 
-        private bool DRAW_COLLIDER = true;
+        private bool DRAW_COLLIDER = false;
 
         Texture2D t;
 
@@ -25,8 +25,10 @@ namespace BeatTheBoss
             t.SetData(new[] { Color.White });
         }
 
-        public void Draw(Scenes.Level currLevel, GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
+            Scenes.Level currLevel = GameplayManager.self.CurrLevel;
+
             spriteBatch.Begin( SpriteSortMode.Deferred, BlendState.AlphaBlend);
             spriteBatch.Draw(TextureManager.background, mainFrame, Color.White);
             spriteBatch.Draw(TextureManager.spriteSheet, Vector2.Zero, TextureManager.KnightTexture, Color.White);

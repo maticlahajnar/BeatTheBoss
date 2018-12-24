@@ -112,6 +112,11 @@ namespace BeatTheBoss.Models.Enemies
             }
 
             stateTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if(hp <= 0)
+            {
+                isAlive = false;
+            }
         }
 
         private void PhaseInUpdate(GameTime gameTime)

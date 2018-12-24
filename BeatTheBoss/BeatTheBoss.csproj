@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameplayManager.cs" />
     <Compile Include="Models\ColliderOnlyObject.cs" />
     <Compile Include="Models\Enemies\SmallOgre.cs" />
     <Compile Include="Models\Enemies\SmallTroll.cs" />

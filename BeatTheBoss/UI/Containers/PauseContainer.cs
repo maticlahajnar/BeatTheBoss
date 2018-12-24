@@ -51,7 +51,7 @@ namespace BeatTheBoss.UI.Containers
             if (isEscPressed && Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
                 isEscPressed = false;
-                Game1.self.CurrLevel.UIContainers.Pop();
+                GameplayManager.self.CurrLevel.UIContainers.Pop();
             }
 
         }

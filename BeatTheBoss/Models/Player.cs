@@ -86,18 +86,25 @@ namespace BeatTheBoss.Models
             if (state.IsKeyDown(Keys.D) || state.IsKeyDown(Keys.Right))
             {
                 direction.X = 1;
-                dir = 1;
             }
             else if (state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.Left))
             {
                 direction.X = -1;
-                dir = -1;
             }
             else
             {
                 direction.X = 0;
             }
             #endregion
+
+            Point mouseCoord = Mouse.GetState().Position;
+            if(mouseCoord.X > position.X)
+            {
+                dir = 1;
+            } else
+            {
+                dir = -1;
+            }
 
 
             timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;

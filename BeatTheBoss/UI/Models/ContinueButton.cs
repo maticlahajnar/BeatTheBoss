@@ -18,7 +18,7 @@ namespace BeatTheBoss.UI.Models
 
         public override void OnClick()
         {
-            Game1.self.CurrLevel.UIContainers.Pop();
+            GameplayManager.self.CurrLevel.UIContainers.Pop();
         }
     }
 }
