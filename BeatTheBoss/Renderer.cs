@@ -12,7 +12,7 @@ namespace BeatTheBoss
         private Rectangle mainFrame;
         public static GraphicsDevice graphicsDevice;
 
-        private bool DRAW_COLLIDER = false;
+        private bool DRAW_COLLIDER = true;
 
         Texture2D t;
 
@@ -31,8 +31,6 @@ namespace BeatTheBoss
             Scenes.Level currLevel = GameplayManager.self.CurrLevel;
 
             spriteBatch.Begin( SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            spriteBatch.Draw(TextureManager.background, mainFrame, Color.White);
-            spriteBatch.Draw(TextureManager.spriteSheet, Vector2.Zero, TextureManager.KnightTexture, Color.White);
             
             foreach (object item in currLevel.items)
             {
@@ -58,6 +56,9 @@ namespace BeatTheBoss
                         1f,
                         ((Weapon)item).playerInstance.dir == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
                         0.6f);
+                } else if(item is Food)
+                {
+                    spriteBatch.Draw(((Food)item).texture, ((Food)item).position, ((Food)item).spriteSource, Color.White);
                 }
 
                 if(DRAW_COLLIDER &&  item is Physics.BoxCollider)

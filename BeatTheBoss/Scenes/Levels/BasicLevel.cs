@@ -13,14 +13,17 @@ namespace BeatTheBoss.Scenes.Levels
     class BasicLevel : Level
     {
         bool isEscPressed;
+        bool allDead;
 
         public BasicLevel(int roomNumber)
         {
             items = new List<object>();
             player = new Models.Player(TextureManager.KnightTexture);
+            room = new Room(TextureManager.background_closed);
+            allDead = false;
 
             #region items.add static elements in this room, start updating at index 6
-            items.Add( new Models.Room(TextureManager.background));
+            items.Add( room );
             items.Add( new Models.ColliderOnlyObject(0, 0, 1280, 20, false));
             items.Add( new Models.ColliderOnlyObject(0, 640, 1280, 80, false));
             items.Add( new Models.ColliderOnlyObject(0, 0, 20, 720, false));
@@ -69,24 +72,37 @@ namespace BeatTheBoss.Scenes.Levels
             }
 
             player.Update(gameTime);
+            allDead = true;
 
-            for(int i = 6; i < items.Count; i++)
+            for (int i = 6; i < items.Count; i++)
             {
-                if(items[i] is Enemy)
+                if (items[i] is Enemy)
+                {
                     ((Enemy)items[i]).Update(gameTime);
-                else if(items[i] is Weapon)
+                    if (((Enemy)items[i]).isAlive)
+                        allDead = false;
+
+                }
+                else if (items[i] is Weapon)
                     ((Weapon)items[i]).Update(gameTime);
             }
+
+
 
             if (!isEscPressed && Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 isEscPressed = true;
             }
 
-            if(isEscPressed && Keyboard.GetState().IsKeyUp(Keys.Escape))
+            if (isEscPressed && Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
                 isEscPressed = false;
                 UIContainers.Push(new UI.Containers.PauseContainer());
+            }
+
+            if (room.texture != TextureManager.background_clear && allDead)
+            {
+                room.texture = TextureManager.background_clear;
             }
         }
 

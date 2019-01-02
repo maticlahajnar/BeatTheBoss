@@ -13,7 +13,7 @@ namespace BeatTheBoss
         public static GameplayManager self;
 
         public Level CurrLevel = null;
-        public int currLevel = 0;
+        public int currLevelNumber = 0;
 
         public GameplayManager()
         {
@@ -29,12 +29,12 @@ namespace BeatTheBoss
 
         public void StartGame()
         {
-            CurrLevel = new Scenes.Levels.BasicLevel(++currLevel);
+            CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
         }
 
         public void NextLevel()
         {
-            CurrLevel = new Scenes.Levels.BasicLevel(++currLevel);
+            CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
         }
     }
 }

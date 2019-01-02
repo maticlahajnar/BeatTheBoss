@@ -12,6 +12,7 @@ namespace BeatTheBoss.Scenes
         public List<Object> items;
         public Stack<UI.Container> UIContainers;
         public Models.Player player;
+        public Models.Room room;
 
         public abstract void Update(GameTime gameTime);
         public abstract void Unload();

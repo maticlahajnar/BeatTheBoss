@@ -48,6 +48,7 @@
     <Compile Include="Models\Enemies\SmallTroll.cs" />
     <Compile Include="Models\Enemies\Wizard.cs" />
     <Compile Include="Models\Enemy.cs" />
+    <Compile Include="Models\Food.cs" />
     <Compile Include="Models\PollyColliderObject.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Weapon.cs" />
@@ -107,6 +108,7 @@
     <Content Include="Content\Textures\dungeonroom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Textures\dungeonroom_clear.png" />
     <Content Include="Content\Textures\tiles.png" />
     <Content Include="Content\Textures\UI.png" />
     <Content Include="Icon.ico" />

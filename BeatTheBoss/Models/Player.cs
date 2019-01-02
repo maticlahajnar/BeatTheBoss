@@ -7,6 +7,8 @@ namespace BeatTheBoss.Models
 {
     class Player : Physics.BoxCollider
     {
+        public static Player self = null;
+
         public Rectangle spriteSource;
 
         public Vector2 position;
@@ -23,22 +25,45 @@ namespace BeatTheBoss.Models
 
         public Player(Rectangle spriteRect)
         {
+            if (self != null)
+            {
+                this.spriteSource = self.spriteSource;
+                this.position = self.position;
+                this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
+                this.direction = new Vector2(0, 0);
+                this.speed = self.speed;
+                this.dir = 1;
+                this.area = self.area;
 
-            this.spriteSource = spriteRect;
-            this.position = new Vector2(640, 360);
-            this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
-            this.direction = new Vector2(0, 0);
-            this.speed = 0.2f;
-            this.dir = 1;
-            this.area = new Rectangle(0, 0, 59, 79);
+                hp = self.hp;
+            } else
+            {
+                this.spriteSource = spriteRect;
+                this.position = new Vector2(640, 360);
+                this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
+                this.direction = new Vector2(0, 0);
+                this.speed = 0.2f;
+                this.dir = 1;
+                this.area = new Rectangle(0, 0, 59, 79);
 
-            hp = 200;
+                hp = 200;
+
+                self = this;
+            }
         }
 
         public override void ApplyCollision(BoxCollider other)
         {
             if (other is Enemy)
                 return;
+
+            if(other is Food)
+            {
+                this.hp += ((Food)other).value;
+                GameplayManager.self.CurrLevel.items.Remove((Food)other);
+                System.Diagnostics.Debug.WriteLine("Hit food");
+                return;
+            }
 
             if (area.Left < other.area.Left && direction.X > 0)
                 direction.X = 0;
@@ -129,6 +154,7 @@ namespace BeatTheBoss.Models
         public void TakeDamage(float damage)
         {
             this.hp -= damage;
+            System.Diagnostics.Debug.WriteLine(hp);
         }
     }
 }

@@ -15,8 +15,6 @@ namespace BeatTheBoss.Models.Enemies
         public Rectangle[] spriteLocations;
         private Player playerInstance;
 
-        public bool isAlive;
-
         public float frameTimer;
         public float frameLimitTime;
         public float stateTimer;
@@ -43,6 +41,8 @@ namespace BeatTheBoss.Models.Enemies
             this.alpha = 1f;
 
             this.hp = 100f;
+            this.dmg = 10f;
+            timeFromLastAttack = 1000000;
             this.isAlive = true;
 
             this.frameTimer = 0;
@@ -56,14 +56,19 @@ namespace BeatTheBoss.Models.Enemies
         {
             if (!isAlive)
             {
-                this.area = Rectangle.Empty;
                 return;
             }
 
             //TODO: apply damage
             if (other is Models.Player)
             {
-                System.Diagnostics.Debug.WriteLine("Player takes damage");
+                if (timeFromLastAttack > 1000)
+                {
+                    ((Player)other).TakeDamage(dmg);
+                    dmgDelt += dmg;
+                    timeFromLastAttack = 0;
+                }
+
                 stateTimer = 0f;
             }
 
@@ -78,9 +83,9 @@ namespace BeatTheBoss.Models.Enemies
 
         public override void Update(GameTime gameTime)
         {
+            timeFromLastAttack += gameTime.ElapsedGameTime.Milliseconds;
             if (!isAlive)
             {
-                this.spriteSource = TextureManager.skull;
                 return;
             }
 
@@ -114,7 +119,21 @@ namespace BeatTheBoss.Models.Enemies
 
             if(isAlive && hp <= 0)
             {
+                double chanceToDropFood = SoundManager.rnd.NextDouble();
+
+                if(chanceToDropFood <= 0.8f)
+                {
+                    float percentage = SoundManager.rnd.Next(20, 30) / 100f;
+                    double howMuchFood = percentage * dmgDelt;
+
+                    if (howMuchFood >= 1)
+                    {
+                        GameplayManager.self.CurrLevel.items.Add(new Food(position, (int)Math.Ceiling(howMuchFood)));
+                    }
+                }
                 isAlive = false;
+                this.spriteSource = TextureManager.skull;
+                this.area = Rectangle.Empty;
             }
         }
 

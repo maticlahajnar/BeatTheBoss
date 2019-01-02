@@ -16,6 +16,10 @@ namespace BeatTheBoss.Models
         public int dir;
         public Color color;
         public float hp;
+        public float dmg;
+        public float dmgDelt;
+        public int timeFromLastAttack;
+        public bool isAlive;
 
         public abstract void Update(GameTime gameTime);
         public abstract void TakeDamage(float damage);
