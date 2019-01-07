@@ -21,7 +21,7 @@ namespace BeatTheBoss.Scenes.Levels
             this.roomNumber = roomNumber;
 
             items = new List<object>();
-            player = new Models.Player(TextureManager.KnightTexture);
+            player = new Models.Player();
             room = new Room(TextureManager.background_closed);
             allDead = false;
 

@@ -23,7 +23,7 @@ namespace BeatTheBoss.Models
         private float timer = 0f;
         private int frame = 0;
 
-        public Player(Rectangle spriteRect)
+        public Player()
         {
             if (self != null)
             {
@@ -35,18 +35,18 @@ namespace BeatTheBoss.Models
                 this.dir = 1;
                 this.area = self.area;
 
-                hp = self.hp;
+                this.hp = self.hp;
             } else
             {
-                this.spriteSource = spriteRect;
-                this.position = new Vector2(640, 360);
+                this.spriteSource = TextureManager.KnightTexture;
+                this.position = new Vector2(625, 340);
                 this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
                 this.direction = new Vector2(0, 0);
                 this.speed = 0.2f;
                 this.dir = 1;
                 this.area = new Rectangle(0, 0, 59, 79);
 
-                hp = 200;
+                this.hp = 200;
 
                 self = this;
             }
@@ -62,7 +62,7 @@ namespace BeatTheBoss.Models
             this.area = new Rectangle(0, 0, 59, 79);
             this.spriteSource = TextureManager.KnightTexture;
 
-            hp = 200;
+            this.hp = 200;
         }
 
         public override void ApplyCollision(BoxCollider other)
@@ -75,7 +75,6 @@ namespace BeatTheBoss.Models
                 this.hp += ((Food)other).value;
                 ((Food)other).triggered = true;
                 GameplayManager.self.CurrLevel.items.Remove((Food)other);
-                System.Diagnostics.Debug.WriteLine("Hit food");
                 return;
             }
 
@@ -99,6 +98,7 @@ namespace BeatTheBoss.Models
 
         public void Update(GameTime gameTime)
         {
+            self = this;
             position = Vector2.Add(Vector2.Multiply(Vector2.Multiply(direction, speed), gameTime.ElapsedGameTime.Milliseconds), position);
 
             area.X = (int)position.X;
@@ -166,7 +166,7 @@ namespace BeatTheBoss.Models
 
             if(hp >= 0 && GameplayManager.self.CurrLevel.UIContainers.Peek() is UI.Containers.GameGui)
             {
-                hp -= gameTime.ElapsedGameTime.Milliseconds / 1500f;
+                this.hp -= gameTime.ElapsedGameTime.Milliseconds / 1500f;
             }
         }
 

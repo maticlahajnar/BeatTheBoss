@@ -83,8 +83,11 @@ namespace BeatTheBoss
             // TODO: Add your update logic here
             gameplay.Update(gameTime);
 
-            physicsEngine.CheckForCollision();
-            bloodParticleEngine.Update();
+            if(GameplayManager.self.CurrLevel.UIContainers.Peek() is UI.Containers.GameGui)
+            {
+                physicsEngine.CheckForCollision();
+                bloodParticleEngine.Update();
+            }
 
             base.Update(gameTime);
         }
