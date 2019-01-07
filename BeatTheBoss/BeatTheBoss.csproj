@@ -49,6 +49,7 @@
     <Compile Include="Models\Enemies\Wizard.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Food.cs" />
+    <Compile Include="Models\LadderTrigger.cs" />
     <Compile Include="Models\PollyColliderObject.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Weapon.cs" />
@@ -75,6 +76,10 @@
     <Compile Include="UI\Components\Label.cs" />
     <Compile Include="UI\Components\Slider.cs" />
     <Compile Include="UI\Container.cs" />
+    <Compile Include="UI\Containers\FadeIn.cs" />
+    <Compile Include="UI\Containers\FadeOut.cs" />
+    <Compile Include="UI\Containers\GameGui.cs" />
+    <Compile Include="UI\Containers\GameOverContainer.cs" />
     <Compile Include="UI\Containers\MainMenuContainer.cs" />
     <Compile Include="UI\Containers\OptionsContainer.cs" />
     <Compile Include="UI\Containers\PauseContainer.cs" />
@@ -83,6 +88,7 @@
     <Compile Include="UI\Models\MusicVolumeSlider.cs" />
     <Compile Include="UI\Models\MuteMusicButton.cs" />
     <Compile Include="UI\Models\OptionsButton.cs" />
+    <Compile Include="UI\Models\PauseButton.cs" />
     <Compile Include="UI\Models\QuitButton.cs" />
     <Compile Include="UI\Models\StartGame.cs" />
     <Compile Include="UI\Models\ToMainMenuButton.cs" />

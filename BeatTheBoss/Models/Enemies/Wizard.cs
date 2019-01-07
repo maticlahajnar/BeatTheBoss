@@ -54,7 +54,7 @@ namespace BeatTheBoss.Models.Enemies
 
         public override void ApplyCollision(BoxCollider other)
         {
-            if (!isAlive)
+            if (!isAlive || other.isTrigger)
             {
                 return;
             }
@@ -121,7 +121,7 @@ namespace BeatTheBoss.Models.Enemies
             {
                 double chanceToDropFood = SoundManager.rnd.NextDouble();
 
-                if(chanceToDropFood <= 0.8f)
+                if(chanceToDropFood <= 0.3f)
                 {
                     float percentage = SoundManager.rnd.Next(20, 30) / 100f;
                     double howMuchFood = percentage * dmgDelt;

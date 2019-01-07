@@ -13,10 +13,13 @@ namespace BeatTheBoss.Scenes.Levels
     class BasicLevel : Level
     {
         bool isEscPressed;
-        bool allDead;
+        UI.Container gameGui;
+        int roomNumber;
 
         public BasicLevel(int roomNumber)
         {
+            this.roomNumber = roomNumber;
+
             items = new List<object>();
             player = new Models.Player(TextureManager.KnightTexture);
             room = new Room(TextureManager.background_closed);
@@ -57,15 +60,30 @@ namespace BeatTheBoss.Scenes.Levels
             items.Add(new Models.Weapons.Sword(player));
 
             UIContainers = new Stack<UI.Container>();
+            gameGui = new UI.Containers.GameGui();
+            UIContainers.Push(gameGui);
+            UIContainers.Push(new UI.Containers.FadeIn());
 
             SoundManager.PlaySong(SoundManager.basicLevelSong);
 
             isEscPressed = false;
+
+            if(player.hp < 200f)
+            {
+                float amountToGive = 200f - player.hp;
+                amountToGive = SoundManager.rnd.Next(70, 100) * amountToGive / 100;
+                amountToGive = Math.Min(amountToGive, 50);
+                Vector2 pos = new Vector2(SoundManager.rnd.Next(40, 1240), SoundManager.rnd.Next(40, 680));
+                items.Add(new Food(pos, (int)amountToGive));
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (UIContainers.Count > 0)
+            if (UIContainers.Count > 0 && UIContainers.Peek() is UI.Containers.GameGui)
+            {
+                UIContainers.Peek().Update(gameTime);
+            } else if(UIContainers.Count > 0)
             {
                 UIContainers.Peek().Update(gameTime);
                 return;
@@ -103,6 +121,17 @@ namespace BeatTheBoss.Scenes.Levels
             if (room.texture != TextureManager.background_clear && allDead)
             {
                 room.texture = TextureManager.background_clear;
+                ((UI.Containers.GameGui)gameGui).AddLevelClearLabel(roomNumber);
+                items.Add(new Models.LadderTrigger());
+            }
+
+            if(player.hp <= 0)
+            {
+                player.hp = 0;
+                player.spriteSource = TextureManager.skull;
+                player.position.X += 30;
+                player.position.Y += 40;
+                UIContainers.Push(new UI.Containers.GameOverContainer());
             }
         }
 

@@ -12,7 +12,7 @@ namespace BeatTheBoss
         private Rectangle mainFrame;
         public static GraphicsDevice graphicsDevice;
 
-        private bool DRAW_COLLIDER = true;
+        private bool DRAW_COLLIDER = false;
 
         Texture2D t;
 

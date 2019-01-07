@@ -7,7 +7,7 @@ namespace BeatTheBoss.Models
 {
     class Player : Physics.BoxCollider
     {
-        public static Player self = null;
+        public static Player self;
 
         public Rectangle spriteSource;
 
@@ -52,14 +52,28 @@ namespace BeatTheBoss.Models
             }
         }
 
+        public void Reset()
+        {
+            this.position = new Vector2(640, 360);
+            this.spritePositions = new Rectangle[] { new Rectangle(510, 302, 59, 79), new Rectangle(574, 302, 59, 79), new Rectangle(638, 302, 59, 79), new Rectangle(702, 306, 59, 75) };
+            this.direction = new Vector2(0, 0);
+            this.speed = 0.2f;
+            this.dir = 1;
+            this.area = new Rectangle(0, 0, 59, 79);
+            this.spriteSource = TextureManager.KnightTexture;
+
+            hp = 200;
+        }
+
         public override void ApplyCollision(BoxCollider other)
         {
             if (other is Enemy)
                 return;
 
-            if(other is Food)
+            if(other is Food && !((Food)other).triggered)
             {
                 this.hp += ((Food)other).value;
+                ((Food)other).triggered = true;
                 GameplayManager.self.CurrLevel.items.Remove((Food)other);
                 System.Diagnostics.Debug.WriteLine("Hit food");
                 return;
@@ -148,6 +162,11 @@ namespace BeatTheBoss.Models
 
                 if (frame % 2 == 0 && (direction.X != 0 || direction.Y != 0))
                     SoundManager.PlayWalkingSound();
+            }
+
+            if(hp >= 0 && GameplayManager.self.CurrLevel.UIContainers.Peek() is UI.Containers.GameGui)
+            {
+                hp -= gameTime.ElapsedGameTime.Milliseconds / 1500f;
             }
         }
 

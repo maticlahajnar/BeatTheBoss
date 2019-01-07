@@ -9,6 +9,8 @@ namespace BeatTheBoss.Physics
 {
     class Collider
     {
+        public Boolean isTrigger = false;
+
         public static void CheckForCollision(Collider object1, Collider object2)
         {
             if(object1 is BoxCollider)

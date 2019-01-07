@@ -15,6 +15,7 @@ namespace BeatTheBoss.Models
         public Rectangle spriteSource;
         public Vector2 position;
         public Texture2D texture;
+        public bool triggered = false;
 
         public Food(Vector2 position, int value)
         {
@@ -23,7 +24,7 @@ namespace BeatTheBoss.Models
             this.spriteSource = new Rectangle(305, 5, 337, 47);
             this.value = value;
             this.texture = TextureManager.uiSpriteSheet;
-
+            isTrigger = true;
         }
 
         public override void ApplyCollision(BoxCollider other)

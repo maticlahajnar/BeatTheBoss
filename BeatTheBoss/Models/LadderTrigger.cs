@@ -8,18 +8,23 @@ using Microsoft.Xna.Framework;
 
 namespace BeatTheBoss.Models
 {
-    class ColliderOnlyObject : BoxCollider
+    class LadderTrigger : Physics.BoxCollider
     {
+        private bool triggered = false;
 
-        public ColliderOnlyObject(int X, int Y, int width, int height, bool istrigger)
+        public LadderTrigger()
         {
-            this.area = new Rectangle(X, Y, width, height);
-            this.isTrigger = istrigger;
+            this.area = new Rectangle(1144, 180, 16, 12);
+            isTrigger = true;
         }
 
         public override void ApplyCollision(BoxCollider other)
         {
-            
+            if (!triggered && other is Player)
+            {
+                GameplayManager.self.CurrLevel.UIContainers.Push(new UI.Containers.FadeOut());
+                triggered = true;
+            }
         }
 
         public override void ApplyCollision(PollygonCollider other)

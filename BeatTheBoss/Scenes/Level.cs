@@ -13,6 +13,7 @@ namespace BeatTheBoss.Scenes
         public Stack<UI.Container> UIContainers;
         public Models.Player player;
         public Models.Room room;
+        public bool allDead = false;
 
         public abstract void Update(GameTime gameTime);
         public abstract void Unload();

@@ -30,11 +30,13 @@ namespace BeatTheBoss
         public void StartGame()
         {
             CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
+            CurrLevel.player.Reset();
         }
 
-        public void NextLevel()
+        public void TryNextLevel()
         {
-            CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
+            if(CurrLevel.allDead)
+                CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
         }
     }
 }
