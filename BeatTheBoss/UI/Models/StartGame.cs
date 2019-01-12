@@ -10,7 +10,7 @@ namespace BeatTheBoss.UI.Models
 {
     class StartGame: Components.Button
     {
-        public StartGame(Rectangle boundingBox, Texture2D texture, Rectangle spriteLocationNormal, Rectangle spriteLocationHover, Color color, Container parentContainer, string text, SpriteFont font, Color fontColor) : base(boundingBox, texture, spriteLocationNormal, spriteLocationHover, color, parentContainer, text, font, fontColor)
+        public StartGame(Rectangle boundingBox, Texture2D texture, Rectangle spriteLocationNormal, Rectangle spriteLocationHover, Color color, Container parentContainer, SpriteFont font, Color fontColor) : base(boundingBox, texture, spriteLocationNormal, spriteLocationHover, color, parentContainer, (SettingsManager.isGameSaved) ? "Continue game" : "New game" , font, fontColor)
         {
 
         }

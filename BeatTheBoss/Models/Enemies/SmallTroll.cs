@@ -141,13 +141,23 @@ namespace BeatTheBoss.Models.Enemies
                 direction.Y = 0;
         }
 
-        public override void TakeDamage(float damage)
+        public override float TakeDamage(float damage)
         {
             if (isAlive)
             {
-                this.hp -= damage;
-                Game1.self.bloodParticleEngine.GenerateNewParticles(new Vector2(position.X + spriteSource.Width / 2, position.Y + spriteSource.Height / 2), SoundManager.rnd.Next(20, 35));
+                float dmgToDo;
+
+                if (hp >= damage)
+                    dmgToDo = damage;
+                else
+                    dmgToDo = hp;
+
+                this.hp -= dmgToDo;
+                Game1.self.bloodParticleEngine.GenerateNewParticles(new Vector2(position.X + spriteSource.Width / 2, position.Y + spriteSource.Height / 2), SoundManager.rnd.Next(30, 50));
+
+                return dmgToDo;
             }
+            return 0;
         }
     }
 }

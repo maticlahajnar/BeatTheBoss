@@ -42,8 +42,8 @@ namespace BeatTheBoss
             walking.Add(manager.Load<SoundEffect>("Sounds\\stepstone_8"));
 
             rnd = new Random();
-            volume = 0.5f;
-            isMuted = false;
+            volume = SettingsManager.savedVolume;
+            isMuted = SettingsManager.savedMusicMuted;
         }
 
         public static void PlayWalkingSound()
@@ -65,12 +65,14 @@ namespace BeatTheBoss
         {
             isMuted = !isMuted;
             MediaPlayer.IsMuted = isMuted;
+            SettingsManager.savedMusicMuted = isMuted;
         }
 
         public static void ChangeVolume(float newVolume)
         {
             volume = newVolume;
             MediaPlayer.Volume = volume;
+            SettingsManager.savedVolume = volume;
         }
 
         public static void PlaySound(SoundEffect sound)

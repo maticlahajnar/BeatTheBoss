@@ -58,10 +58,14 @@ namespace BeatTheBoss.Models.Enemies
 
             if (other is Models.Player)
             {
+                float dmgToDo = dmg;
+                if (currentState == SmallOgreStates.Charge)
+                    dmgToDo *= 1.2f;
+
                 if (timeFromLastAttack > 1000)
                 {
-                    ((Player)other).TakeDamage(dmg);
-                    dmgDelt += dmg;
+                    ((Player)other).TakeDamage(dmgToDo);
+                    dmgDelt += dmgToDo;
                     timeFromLastAttack = 0;
                 }
 
@@ -99,21 +103,24 @@ namespace BeatTheBoss.Models.Enemies
             this.area.X = (int)position.X;
             this.area.Y = (int)position.Y;
 
-            this.direction = Vector2.Normalize(Vector2.Subtract(playerInstance.area.Center.ToVector2(), this.area.Center.ToVector2()));
-
-            if (float.IsNaN(this.direction.X))
-                this.direction.X = 0;
-
-            if (float.IsNaN(this.direction.Y))
-                this.direction.Y = 0;
-
-            if (this.direction.X >= 0)
+            if (currentState != SmallOgreStates.Charge)
             {
-                this.dir = 1;
-            }
-            else
-            {
-                this.dir = -1;
+                this.direction = Vector2.Normalize(Vector2.Subtract(playerInstance.area.Center.ToVector2(), this.area.Center.ToVector2()));
+
+                if (float.IsNaN(this.direction.X))
+                    this.direction.X = 0;
+
+                if (float.IsNaN(this.direction.Y))
+                    this.direction.Y = 0;
+
+                if (this.direction.X >= 0)
+                {
+                    this.dir = 1;
+                }
+                else
+                {
+                    this.dir = -1;
+                }
             }
 
 
@@ -182,13 +189,20 @@ namespace BeatTheBoss.Models.Enemies
                 direction.Y = 0;
         }
 
-        public override void TakeDamage(float damage)
+        public override float TakeDamage(float damage)
         {
             if (isAlive)
             {
-                this.hp -= damage;
+                float dmgToDo;
+                if (hp >= damage)
+                    dmgToDo = damage;
+                else
+                    dmgToDo = hp;
+                this.hp -= dmgToDo;
                 Game1.self.bloodParticleEngine.GenerateNewParticles(new Vector2(position.X + spriteSource.Width / 2, position.Y + spriteSource.Height / 2), SoundManager.rnd.Next(30, 50));
+                return dmgToDo;
             }
+            return 0;
         }
     }
 }

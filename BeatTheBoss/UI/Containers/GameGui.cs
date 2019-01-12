@@ -11,6 +11,7 @@ namespace BeatTheBoss.UI.Containers
     class GameGui : Container
     {
         Components.Label foodLabel;
+        Components.Label scoreLabel;
 
         public GameGui()
         {
@@ -24,14 +25,20 @@ namespace BeatTheBoss.UI.Containers
             if (components.Count == 0)
             {
                 foodLabel = new Components.Label("100", new Rectangle(1150, 666, 120, 32), this, Color.White, TextureManager.fontRegular30);
+                scoreLabel = new Components.Label("0", new Rectangle(0, 680, 1280, 40), this, Color.White, TextureManager.fontRegular30);
                 components.Add(new Models.PauseButton(new Rectangle(1215, 20, 45, 45), TextureManager.uiSpriteSheet, new Rectangle(240, 4, 45, 45), new Rectangle(240, 4, 45, 45), Color.White, this, "II", TextureManager.fontRegular30, Color.Black));
                 components.Add(new Components.Image(new Rectangle(1110, 658, 32, 42), TextureManager.uiSpriteSheet, new Rectangle(305, 5, 32, 42), Color.White, this));
                 components.Add(new Components.Label("Room " + GameplayManager.self.currLevelNumber, new Rectangle(20, 20, 200, 40), this, Color.White, TextureManager.fontRegular30));
+                components.Add(new Components.Label("SCORE", new Rectangle(0, 670, 1280, 20), this, Color.White, TextureManager.fontRegular12));
+                components.Add(scoreLabel);
                 components.Add(foodLabel);
             }
 
             foodLabel.text = ((int)GameplayManager.self.CurrLevel.player.hp).ToString();
             foodLabel.Realign();
+
+            scoreLabel.text = GameplayManager.self.score.ToString();
+            scoreLabel.Realign();
 
             foreach (Component component in components)
                 component.Update(gameTime);

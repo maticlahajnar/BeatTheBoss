@@ -11,19 +11,19 @@ namespace BeatTheBoss.UI.Components
 {
     class InputField : Button
     {
-        private bool isActive;
-        StringBuilder textBuilder;
+        public bool isActive;
+        public StringBuilder textBuilder;
 
         public InputField(Rectangle boundingBox, Texture2D texture, Rectangle spriteLocationNormal, Rectangle spriteLocationHover, Color color, Container parentContainer, string text, SpriteFont font, Color fontColor) : base(boundingBox, texture, spriteLocationNormal, spriteLocationHover, color, parentContainer, text, font, fontColor)
         {
             isActive = false;
             Game1.self.Window.TextInput += UpdateText;
             textBuilder = new StringBuilder();
+            textBuilder.Append(text);
         }
 
         public override void OnClick()
         {
-            base.OnClick();
             isActive = true;
         }
 

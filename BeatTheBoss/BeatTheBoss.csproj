@@ -59,6 +59,11 @@
     <Compile Include="Physics\Collider.cs" />
     <Compile Include="Physics\PhysicsEngine.cs" />
     <Compile Include="Physics\PollygonCollider.cs" />
+    <Compile Include="Properties\GameSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>GameSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Renderer.cs" />
     <Compile Include="Physics\BoxCollider.cs" />
     <Compile Include="Scenes\Level.cs" />
@@ -67,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Levels\BasicLevel.cs" />
     <Compile Include="Scenes\Levels\MainMenu.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="TextureManager.cs" />
     <Compile Include="UI\Component.cs" />
@@ -89,6 +95,7 @@
     <Compile Include="UI\Models\MuteMusicButton.cs" />
     <Compile Include="UI\Models\OptionsButton.cs" />
     <Compile Include="UI\Models\PauseButton.cs" />
+    <Compile Include="UI\Models\PlayerNameInput.cs" />
     <Compile Include="UI\Models\QuitButton.cs" />
     <Compile Include="UI\Models\StartGame.cs" />
     <Compile Include="UI\Models\ToMainMenuButton.cs" />
@@ -121,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Content\Fonts\Pixel12.spritefont" />
     <None Include="Content\Fonts\Pixel30.spritefont" />
@@ -129,6 +137,10 @@
     <None Include="Content\Fonts\slkscrb.ttf" />
     <None Include="Content\Sounds\Dungeon.ogg" />
     <None Include="Content\Sounds\Opening.ogg" />
+    <None Include="Properties\GameSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>GameSettings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

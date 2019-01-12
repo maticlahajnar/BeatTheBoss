@@ -22,7 +22,7 @@ namespace BeatTheBoss.UI.Containers
             if(components.Count == 0)
             {
                 components.Add(new Components.Label("Beat The Boss", new Rectangle(0, 0, 492, 150), this, Color.White, TextureManager.fontBold30));
-                components.Add(new Models.StartGame(new Rectangle(0,150,492,80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, "Start game", TextureManager.fontRegular12, Color.Black));
+                components.Add(new Models.StartGame(new Rectangle(0,150,492,80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, TextureManager.fontRegular12, Color.Black));
                 components.Add(new Models.OptionsButton(new Rectangle(0, 230, 492, 80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, "Options", TextureManager.fontRegular12, Color.Black));
                 components.Add(new Components.Button(new Rectangle(0, 310, 492, 80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, "About", TextureManager.fontRegular12, Color.Black));
                 components.Add(new Models.QuitButton(new Rectangle(0, 390, 492, 80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, "Quit", TextureManager.fontRegular12, Color.Black));

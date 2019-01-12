@@ -18,6 +18,31 @@ namespace BeatTheBoss.UI.Models
 
         public override void OnClick()
         {
+            if(GameplayManager.self.CurrLevel.player.hp <= 0)
+            {
+                SettingsManager.isGameSaved = false;
+                SettingsManager.savedGameRoomNumber = 0;
+                SettingsManager.savedGameScore = 0;
+                SettingsManager.savedPlayerHp = 200f;
+            }
+            else
+            {
+                if (GameplayManager.self.CurrLevel.allDead)
+                {
+                    SettingsManager.isGameSaved = true;
+                    SettingsManager.savedGameRoomNumber = GameplayManager.self.currLevelNumber + 1;
+                    SettingsManager.savedGameScore = GameplayManager.self.score;
+                    SettingsManager.savedPlayerHp = GameplayManager.self.CurrLevel.player.hp;
+                }
+                else
+                {
+                    SettingsManager.isGameSaved = true;
+                    SettingsManager.savedGameRoomNumber = GameplayManager.self.currLevelNumber;
+                }
+            }
+
+            SettingsManager.SaveSettings();
+
             GameplayManager.self.CurrLevel = new Scenes.Levels.MainMenu();
         }
     }

@@ -33,7 +33,7 @@ namespace BeatTheBoss.UI.Containers
                 components.Add(new Components.Label("Options", new Rectangle(0, 0, 492, 100), this, Color.White, TextureManager.fontBold30));
 
                 components.Add(new Components.Label("Player name", new Rectangle(0, 100, 492, 20), this, Color.White, TextureManager.fontRegular12));
-                components.Add(new Components.InputField(new Rectangle(0, 120, 492, 60), TextureManager.uiSpriteSheet, new Rectangle(4, 141, 206, 49), new Rectangle(4, 141, 206, 49), Color.White, this, "", TextureManager.fontRegular12, Color.Black));
+                components.Add(new Models.PlayerNameInput(new Rectangle(0, 120, 492, 60), this));
 
                 components.Add(new Components.Label("Music", new Rectangle(0, 190, 492, 20), this, Color.White, TextureManager.fontRegular12));
                 string text = (SoundManager.isMuted) ? "Unmute music" : "Mute music"; 

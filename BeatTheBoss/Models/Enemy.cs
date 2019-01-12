@@ -22,6 +22,6 @@ namespace BeatTheBoss.Models
         public bool isAlive;
 
         public abstract void Update(GameTime gameTime);
-        public abstract void TakeDamage(float damage);
+        public abstract float TakeDamage(float damage);
     }
 }

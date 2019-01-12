@@ -49,7 +49,8 @@ namespace BeatTheBoss.Models.Weapons
                 if(!enemiesHit.Contains((Enemy)other))
                 {
                     enemiesHit.Add((Enemy)other);
-                    ((Enemy)other).TakeDamage(damage);
+                    
+                    GameplayManager.self.score += ((int)((Enemy)other).TakeDamage(damage)); ;
                 }
             }
         }

@@ -55,7 +55,9 @@ namespace BeatTheBoss
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             myRenderer = new Renderer(spriteBatch, mainFrame, GraphicsDevice);
             physicsEngine = new Physics.PhysicsEngine();
-            
+
+            SettingsManager.ReadSettings();
+
             TextureManager.LoadTextures(Content);
             SoundManager.LoadContent(Content);
 

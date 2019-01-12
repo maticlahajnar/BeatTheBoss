@@ -14,6 +14,7 @@ namespace BeatTheBoss
 
         public Level CurrLevel = null;
         public int currLevelNumber = 0;
+        public int score = 0;
 
         public GameplayManager()
         {
@@ -29,14 +30,31 @@ namespace BeatTheBoss
 
         public void StartGame()
         {
+            if (SettingsManager.isGameSaved)
+            {
+                currLevelNumber = SettingsManager.savedGameRoomNumber - 1;
+                score = SettingsManager.savedGameScore;
+            }
+
             CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
-            CurrLevel.player.Reset();
+            
+            if(SettingsManager.isGameSaved)
+            {
+                CurrLevel.player.hp = SettingsManager.savedPlayerHp;
+            } else
+            {
+                CurrLevel.player.Reset();
+            }
         }
 
         public void TryNextLevel()
         {
-            if(CurrLevel.allDead)
+            if (CurrLevel.allDead)
+            {
                 CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
+                SettingsManager.savedGameScore = score;
+                SettingsManager.savedPlayerHp = CurrLevel.player.hp;
+            }
         }
     }
 }
