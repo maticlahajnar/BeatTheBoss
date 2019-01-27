@@ -12,7 +12,7 @@ namespace BeatTheBoss
         private Rectangle mainFrame;
         public static GraphicsDevice graphicsDevice;
 
-        private bool DRAW_COLLIDER = false;
+        private bool DRAW_COLLIDER = true;
 
         Texture2D t;
 
@@ -59,6 +59,9 @@ namespace BeatTheBoss
                 } else if(item is Food)
                 {
                     spriteBatch.Draw(((Food)item).texture, ((Food)item).position, ((Food)item).spriteSource, Color.White);
+                } else if(item is WaterFountain)
+                {
+                    spriteBatch.Draw(TextureManager.spriteSheet, ((WaterFountain)item).position, ((WaterFountain)item).spriteSource, Color.White);
                 }
 
                 if(DRAW_COLLIDER &&  item is Physics.BoxCollider)

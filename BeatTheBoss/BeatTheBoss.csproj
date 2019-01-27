@@ -44,6 +44,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameplayManager.cs" />
     <Compile Include="Models\ColliderOnlyObject.cs" />
+    <Compile Include="Models\Enemies\OgreBoss.cs" />
     <Compile Include="Models\Enemies\SmallOgre.cs" />
     <Compile Include="Models\Enemies\SmallTroll.cs" />
     <Compile Include="Models\Enemies\Wizard.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Models\LadderTrigger.cs" />
     <Compile Include="Models\PollyColliderObject.cs" />
     <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\WaterFountain.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\Weapons\Sword.cs" />
     <Compile Include="Particles\Particle.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Levels\BasicLevel.cs" />
+    <Compile Include="Scenes\Levels\BossLevel.cs" />
     <Compile Include="Scenes\Levels\MainMenu.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="SoundManager.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="UI\Containers\GameGui.cs" />
     <Compile Include="UI\Containers\GameOverContainer.cs" />
     <Compile Include="UI\Containers\MainMenuContainer.cs" />
+    <Compile Include="UI\Containers\NewOrContinue.cs" />
     <Compile Include="UI\Containers\OptionsContainer.cs" />
     <Compile Include="UI\Containers\PauseContainer.cs" />
     <Compile Include="UI\Models\BackButton.cs" />

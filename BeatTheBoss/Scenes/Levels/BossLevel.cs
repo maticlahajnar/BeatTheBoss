@@ -1,49 +1,53 @@
-﻿using BeatTheBoss.Models;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeatTheBoss.Models;
+using BeatTheBoss.Models.Enemies;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BeatTheBoss.Scenes.Levels
 {
-    class BasicLevel : Level
+    class BossLevel : Level
     {
         bool isEscPressed;
         UI.Container gameGui;
         int roomNumber;
 
-        public BasicLevel(int roomNumber)
+        public BossLevel(int roomNumber)
         {
             this.roomNumber = roomNumber;
-
             items = new List<object>();
-            player = new Models.Player();
-            room = new Room(TextureManager.background_closed);
+            player = new Player();
+            room = new Room(TextureManager.bossroom_closed);
             allDead = false;
 
-            #region items.add static elements in this room, start updating at index 6
-            items.Add( room );
-            items.Add( new Models.ColliderOnlyObject(0, 0, 1280, 20, false));
-            items.Add( new Models.ColliderOnlyObject(0, 640, 1280, 80, false));
-            items.Add( new Models.ColliderOnlyObject(0, 0, 20, 720, false));
-            items.Add( new Models.ColliderOnlyObject(1260, 0, 20, 720, false));
+            items.Add(room);
+            items.Add(new Models.ColliderOnlyObject(0, 0, 1280, 20, false));
+            items.Add(new Models.ColliderOnlyObject(0, 640, 1280, 80, false));
+            items.Add(new Models.ColliderOnlyObject(0, 0, 20, 720, false));
+            items.Add(new Models.ColliderOnlyObject(1260, 0, 20, 720, false));
+            items.Add(new WaterFountain(new Vector2(540, 32)));
+            items.Add(new WaterFountain(new Vector2(691, 32)));
             items.Add(player);
-            #endregion
+
+            int x = SoundManager.rnd.Next(120, 1160);
+            int y = SoundManager.rnd.Next(120, 540);
+            Vector2 enemyPosition = new Vector2(x, y);
+            items.Add(new OgreBoss(enemyPosition, player));
 
             int enemyCount = 2 + roomNumber / 5;
 
-            for(int i = 0; i < enemyCount; i++)
+            for (int i = 0; i < enemyCount; i++)
             {
                 int enemyType = SoundManager.rnd.Next(0, 3);
-                int x = SoundManager.rnd.Next(120, 1160);
-                int y = SoundManager.rnd.Next(120, 540);
-                Vector2 enemyPosition = new Vector2(x,y);
+                x = SoundManager.rnd.Next(120, 1160);
+                y = SoundManager.rnd.Next(120, 540);
+                enemyPosition = new Vector2(x, y);
 
-                switch(enemyType)
+                switch (enemyType)
                 {
                     case 0:
                         items.Add(new Models.Enemies.SmallOgre(enemyPosition, player));
@@ -64,11 +68,11 @@ namespace BeatTheBoss.Scenes.Levels
             UIContainers.Push(gameGui);
             UIContainers.Push(new UI.Containers.FadeIn());
 
-            SoundManager.PlaySong(SoundManager.basicLevelSong);
+            SoundManager.PlaySong(SoundManager.bossLevelSong);
 
             isEscPressed = false;
 
-            if(player.hp < 200f)
+            if (player.hp < 200f)
             {
                 float amountToGive = 200f - player.hp;
                 amountToGive = SoundManager.rnd.Next(70, 100) * amountToGive / 100;
@@ -78,12 +82,18 @@ namespace BeatTheBoss.Scenes.Levels
             }
         }
 
+        public override void Unload()
+        {
+            
+        }
+
         public override void Update(GameTime gameTime)
         {
             if (UIContainers.Count > 0 && UIContainers.Peek() is UI.Containers.GameGui)
             {
                 UIContainers.Peek().Update(gameTime);
-            } else if(UIContainers.Count > 0)
+            }
+            else if (UIContainers.Count > 0)
             {
                 UIContainers.Peek().Update(gameTime);
                 return;
@@ -92,7 +102,7 @@ namespace BeatTheBoss.Scenes.Levels
             player.Update(gameTime);
             allDead = true;
 
-            for (int i = 6; i < items.Count; i++)
+            for (int i = 5; i < items.Count; i++)
             {
                 if (items[i] is Enemy)
                 {
@@ -103,6 +113,8 @@ namespace BeatTheBoss.Scenes.Levels
                 }
                 else if (items[i] is Weapon)
                     ((Weapon)items[i]).Update(gameTime);
+                else if (items[i] is WaterFountain)
+                    ((WaterFountain)items[i]).Update(gameTime);
             }
 
 
@@ -118,14 +130,14 @@ namespace BeatTheBoss.Scenes.Levels
                 UIContainers.Push(new UI.Containers.PauseContainer());
             }
 
-            if (room.texture != TextureManager.background_clear && allDead)
+            if (room.texture != TextureManager.bossroom_clear && allDead)
             {
-                room.texture = TextureManager.background_clear;
+                room.texture = TextureManager.bossroom_clear;
                 ((UI.Containers.GameGui)gameGui).AddLevelClearLabel(roomNumber);
                 items.Add(new Models.LadderTrigger());
             }
 
-            if(player.hp <= 0)
+            if (player.hp <= 0)
             {
                 player.hp = 0;
                 player.spriteSource = TextureManager.skull;
@@ -133,11 +145,6 @@ namespace BeatTheBoss.Scenes.Levels
                 player.position.Y += 40;
                 UIContainers.Push(new UI.Containers.GameOverContainer());
             }
-        }
-
-        public override void Unload()
-        {
-            MediaPlayer.Stop();
         }
     }
 }

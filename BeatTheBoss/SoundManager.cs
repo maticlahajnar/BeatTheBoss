@@ -14,6 +14,7 @@ namespace BeatTheBoss
         public static SoundEffect swordSound;
 
         public static Song basicLevelSong;
+        public static Song bossLevelSong;
         public static Song mainMenuSong;
 
         public static float volume;
@@ -30,6 +31,7 @@ namespace BeatTheBoss
 
             basicLevelSong = manager.Load<Song>("Sounds\\Dungeon");
             mainMenuSong = manager.Load<Song>("Sounds\\Opening");
+            bossLevelSong = manager.Load<Song>("Sounds\\Danger");
 
             walking = new List<SoundEffect>();
             walking.Add(manager.Load<SoundEffect>("Sounds\\stepstone_1"));

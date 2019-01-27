@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace BeatTheBoss.UI.Containers
 {
@@ -38,6 +39,7 @@ namespace BeatTheBoss.UI.Containers
             colorModifier += gameTime.ElapsedGameTime.Milliseconds / 500f;
 
             color = Color.Black * colorModifier;
+            MediaPlayer.Volume = Math.Min(SoundManager.volume * (1-colorModifier), SoundManager.volume);
 
             if(colorModifier >= 1f)
             {

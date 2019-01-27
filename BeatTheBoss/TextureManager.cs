@@ -13,6 +13,8 @@ namespace BeatTheBoss
 
         public static Texture2D background_closed;
         public static Texture2D background_clear;
+        public static Texture2D bossroom_closed;
+        public static Texture2D bossroom_clear;
         public static Rectangle KnightTexture;
 
         public static SpriteFont fontRegular12;
@@ -30,6 +32,9 @@ namespace BeatTheBoss
             uiSpriteSheet = manager.Load<Texture2D>("Textures\\UI");
             background_closed = manager.Load<Texture2D>("Textures\\dungeonroom");
             background_clear = manager.Load<Texture2D>("Textures\\dungeonroom_clear");
+
+            bossroom_closed = manager.Load<Texture2D>("Textures\\bossroom");
+            bossroom_clear = manager.Load<Texture2D>("Textures\\bossroom_clear");
 
             KnightTexture = new Rectangle(510, 302, 59, 79);
 
