@@ -37,9 +37,9 @@ namespace BeatTheBoss
             }
 
             if (++currLevelNumber % 5 == 0)
-                CurrLevel = new Scenes.Levels.BossLevel(++currLevelNumber);
+                CurrLevel = new Scenes.Levels.BossLevel(currLevelNumber);
             else
-                CurrLevel = new Scenes.Levels.BasicLevel(++currLevelNumber);
+                CurrLevel = new Scenes.Levels.BasicLevel(currLevelNumber);
 
             if (!newGame)
             {
