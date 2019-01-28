@@ -85,6 +85,7 @@
     <Compile Include="UI\Components\Label.cs" />
     <Compile Include="UI\Components\Slider.cs" />
     <Compile Include="UI\Container.cs" />
+    <Compile Include="UI\Containers\About.cs" />
     <Compile Include="UI\Containers\FadeIn.cs" />
     <Compile Include="UI\Containers\FadeOut.cs" />
     <Compile Include="UI\Containers\GameGui.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="UI\Containers\NewOrContinue.cs" />
     <Compile Include="UI\Containers\OptionsContainer.cs" />
     <Compile Include="UI\Containers\PauseContainer.cs" />
+    <Compile Include="UI\Models\AboutButton.cs" />
     <Compile Include="UI\Models\BackButton.cs" />
     <Compile Include="UI\Models\ContinueButton.cs" />
     <Compile Include="UI\Models\MusicVolumeSlider.cs" />
