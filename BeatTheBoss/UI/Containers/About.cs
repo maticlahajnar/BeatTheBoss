@@ -45,6 +45,8 @@ namespace BeatTheBoss.UI.Containers
                 components.Add(new Components.Label("Slovenia", new Rectangle(0, 310, 700, 20), this, Color.White, TextureManager.fontRegular12));
                 components.Add(new Components.Label("2019", new Rectangle(0, 330, 700, 20), this, Color.White, TextureManager.fontRegular12));
 
+                components.Add(new Components.Label("Soundtrack by avgsta from OpenGameArt", new Rectangle(0, 380, 700, 20), this, Color.White, TextureManager.fontRegular12));
+
                 components.Add(new Models.BackButton(new Rectangle(0, 465, 700, 80), TextureManager.uiSpriteSheet, new Rectangle(4, 4, 206, 68), new Rectangle(4, 77, 207, 60), Color.White, this, "Back", TextureManager.fontRegular12, Color.Black));
             }
 
